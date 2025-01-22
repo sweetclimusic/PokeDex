@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		577E83882D40598D00917672 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 577E83872D40598D00917672 /* ViewInspector */; };
+		577E838D2D4061B300917672 /* README.MD in Resources */ = {isa = PBXBuildFile; fileRef = 577E838C2D4061B300917672 /* README.MD */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		577E831C2D3DBE1E00917672 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +32,7 @@
 		577E830B2D3DBE1C00917672 /* PokeDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		577E831B2D3DBE1E00917672 /* PokeDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokeDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		577E83252D3DBE1E00917672 /* PokeDexUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokeDexUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		577E838C2D4061B300917672 /* README.MD */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.MD; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -59,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				577E83882D40598D00917672 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +82,7 @@
 		577E83022D3DBE1C00917672 = {
 			isa = PBXGroup;
 			children = (
+				577E838C2D4061B300917672 /* README.MD */,
 				577E830D2D3DBE1C00917672 /* PokeDex */,
 				577E831E2D3DBE1E00917672 /* PokeDexTests */,
 				577E83282D3DBE1E00917672 /* PokeDexUITests */,
@@ -135,6 +143,7 @@
 			);
 			name = PokeDexTests;
 			packageProductDependencies = (
+				577E83872D40598D00917672 /* ViewInspector */,
 			);
 			productName = PokeDexTests;
 			productReference = 577E831B2D3DBE1E00917672 /* PokeDexTests.xctest */;
@@ -195,6 +204,9 @@
 			);
 			mainGroup = 577E83022D3DBE1C00917672;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				577E83862D40598D00917672 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 577E830C2D3DBE1C00917672 /* Products */;
 			projectDirPath = "";
@@ -212,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				577E838D2D4061B300917672 /* README.MD in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +571,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		577E83862D40598D00917672 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		577E83872D40598D00917672 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 577E83862D40598D00917672 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 577E83032D3DBE1C00917672 /* Project object */;
 }
