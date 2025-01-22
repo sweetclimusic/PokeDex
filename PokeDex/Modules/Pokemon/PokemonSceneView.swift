@@ -31,7 +31,7 @@ extension PokeApi.Pokemon {
     struct SceneView: View {
         var interactor: PokeApiPokemonBusinessLogic!
         var observableState: ObservableState = ObservableState()
-        
+
         @State private var path = NavigationPath()
 
         var body: some View {
@@ -41,7 +41,11 @@ extension PokeApi.Pokemon {
                 }
                 .navigationBarTitleDisplayMode(.large)
                 .task {
-                    await interactor.getViewContents()
+                    do {
+                        try await interactor.getViewContents()
+                    } catch {
+                        observableState.viewState = .error
+                    }
                 }
             }.padding()
         }

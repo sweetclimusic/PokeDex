@@ -20,18 +20,18 @@ extension PokeApi.Pokemon {
         var sceneViewState: SceneState = PokeApi.Pokemon.SceneState.empty
         
         func display() -> any View {
-            var observableSceneState = PokeApi.Pokemon.ObservableState()
+            let observableSceneState = PokeApi.Pokemon.ObservableState()
             observableSceneState.viewState = sceneViewState
             
             let interactor = Interactor()
             let presenter = Presenter()
             let viewController = ViewController(observableState: observableSceneState)
             interactor.presenter = presenter
-            
+            presenter.sceneView = viewController
             dataStore = interactor
             var sceneView = PokeApi.Pokemon.SceneView(interactor: interactor,observableState: observableSceneState)
         
-            presenter.sceneView = viewController
+            //presenter.sceneView = viewController
             return sceneView
         }
     }

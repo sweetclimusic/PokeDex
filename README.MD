@@ -46,8 +46,11 @@ Only pokemon were address for the spoc, further user experince could be made by 
 
 TODO:
 keep readme updated
+last working on loading the JSON data, so far there is a nil value,
+in the Task group I need to have the first result returned to then do the getByID fetch.
+
 PokeApiPokemonViewDelegate need to update the ObservableState, normally there is a viewcontroller
-ref TAXCalc v2 to avoid weird bug..
+
 load Navigation stack loading PokemonSceneView.
 have pokemonSceneView loading, then go to fetch the service and wait for pokemon...
 verify JSON data is loaded correctly

@@ -36,9 +36,14 @@ extension PokeApi.Pokemon {
                 .padding(10)
                 .background(.ultraThinMaterial)
                 .border(Color.gray)
-                HStack {
-                    Text(pokemon.region ?? "unknown")
-                    Text(pokemon.area ?? "unknown")
+                VStack(alignment: .leading) {
+                    Text("Type")
+                        .font(.title3)
+                    HStack {
+                        Text(pokemon.primaryType ?? "unknown")
+                        Spacer()
+                        Text(pokemon.secondaryType ?? "unknown")
+                    }
                 }
             }.safeAreaInset(edge: .bottom) {
                 // MARK: extract View to buttonView, destination "ChartView()" actual...

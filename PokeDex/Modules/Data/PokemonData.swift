@@ -77,17 +77,22 @@ struct PokemonType: Codable, Identifiable, Equatable, Hashable {
 
 struct PokemonSpecies: Decodable {
     let count: Int
-    let results: [Pokemon]
+    let results: [PokeApiStandardResultNode]
+    let next: String?
+    let previous: String?
 
     enum CodingKeys: String, CodingKey {
-        case count, results
+        case count, results, next, previous
     }
 
     init(from decoder: Decoder) throws {
         do {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             count = try container.decode(Int.self, forKey: .count)
-            results = (try? container.decode([Pokemon].self, forKey: .results)) ?? []
+            results = (try? container.decode([PokeApiStandardResultNode].self, forKey: .results)) ?? []
+            next = try? container.decodeIfPresent(String.self, forKey: .next)
+            previous = try? container.decodeIfPresent(String.self, forKey: .previous)
+            return
         } catch let DecodingError.dataCorrupted(context) {
             print(context)
         } catch let DecodingError.keyNotFound(key, context) {
@@ -114,14 +119,18 @@ struct Pokemon: Decodable {
     var id: Int?
     var name: String?
     var imageUrl: String? = nil
-    var region: String? = nil
-    var area: String? = nil
+    var primaryType: String? {
+        type.first
+    }
+    var secondaryType: String? {
+        type.last
+    }
     var type: [String] = []
     var pokemon: PokeApiStandardResultNode?
     var pokemonHabitat: PokemonHabitat?
 
     enum CodingKeys: String, CodingKey {
-        case id, name, type, pokemon, pokemonHabitat
+        case id, name, type, pokemon
         case sprites
     }
 
@@ -137,7 +146,12 @@ struct Pokemon: Decodable {
     enum ArtworkKeys: String, CodingKey {
         case frontDefault = "front_default"
     }
-
+    
+    init(id: Int, name: String) {
+        self.id = id
+        self.name = name
+    }
+    
     init(from decoder: any Decoder) throws {
         do {
 
@@ -147,30 +161,25 @@ struct Pokemon: Decodable {
             type = try container.decodeIfPresent([String].self, forKey: .type) ?? []
             pokemon = try container.decodeIfPresent(
                 PokeApiStandardResultNode.self, forKey: .pokemon)
-            pokemonHabitat = try container.decodeIfPresent(
-                PokemonHabitat.self, forKey: .pokemonHabitat)
-
-            if let habit = pokemonHabitat {
-                region = habit.location.name
-                area = habit.name
-            }
 
             // Decode nested sprite data
-            let spritesContainer = try container.nestedContainer(
-                keyedBy: SpritesKeys.self, forKey: .sprites)
-            let otherContainer = try spritesContainer.nestedContainer(
-                keyedBy: OtherKeys.self, forKey: .other)
-            let artworkContainer = try otherContainer.nestedContainer(
-                keyedBy: ArtworkKeys.self, forKey: .officialArtwork)
-
-            // Try to get official artwork first, fall back to regular sprite
-            if let artworkUrl = try? artworkContainer.decodeIfPresent(
-                String.self, forKey: .frontDefault)
-            {
-                imageUrl = artworkUrl
-            } else {
-                imageUrl = try? spritesContainer.decodeIfPresent(String.self, forKey: .frontDefault)
+            if let spritesContainer = try? container.nestedContainer(
+                keyedBy: SpritesKeys.self, forKey: .sprites),
+                let otherContainer = try? spritesContainer.nestedContainer(
+                    keyedBy: OtherKeys.self, forKey: .other),
+                let artworkContainer = try? otherContainer.nestedContainer(
+                    keyedBy: ArtworkKeys.self, forKey: .officialArtwork) {
+                // Try to get official artwork first, fall back to regular sprite
+                if let artworkUrl = try? artworkContainer.decodeIfPresent(
+                    String.self, forKey: .frontDefault)
+                {
+                    imageUrl = artworkUrl
+                } else {
+                    imageUrl = try? spritesContainer.decodeIfPresent(String.self, forKey: .frontDefault)
+                }
             }
+
+            
         } catch let DecodingError.dataCorrupted(context) {
             print(context)
         } catch let DecodingError.keyNotFound(key, context) {

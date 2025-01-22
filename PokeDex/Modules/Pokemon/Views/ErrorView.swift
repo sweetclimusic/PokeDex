@@ -11,7 +11,7 @@ extension PokeApi.Pokemon {
     
     struct ErrorView: View {
         var errorMessage: String?
-        var systemImageName: String = "exclamationmark.triangleh"
+        var systemImageName: String = "exclamationmark.triangle"
         
         var description: String { "Oh No! we encountered an error \(String(describing: errorMessage))" }
         

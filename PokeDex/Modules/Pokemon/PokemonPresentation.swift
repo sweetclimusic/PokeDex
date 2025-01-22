@@ -17,8 +17,9 @@ extension PokeApi.Pokemon {
 
         let builder = PokeApi.Pokemon.ViewModelBuilder()
         func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response){
-            builder.buildAPokemonHabitat()
-            sceneView.displayViewContents(viewModel: .init(pokemon: []))
+//            sceneView.displayViewContents(viewModel:
+            builder.buildPokemonViewModel(pokeResponse: response)
+//            )
         }
  
     }

@@ -29,7 +29,6 @@ enum Endpoints: String, Sendable {
     static let imageHost: String =
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
     case pokemon = "pokemon/"
-    case locationArea = "location-area/"
 
     enum Image: String, Sendable {
         case sprite
