@@ -7,10 +7,14 @@
 
 extension PokeApi.Pokemon {
     class ViewModelBuilder {
-        typealias Response = PokeApi.Pokemon.ViewContents.Response
-        func buildPokemonViewModel(pokeResponse: Response) {
-            // TODO stripe all the response data
-            // pokemon, habitat, image and build a viewmodel   
+        func buildPokemonViewModel(pokeResponse: Response) -> ViewModel {
+            //manipulate the data here pokemon, habitat, image and build a viewmodel
+            .init(
+                pokemon: pokeResponse.results,
+                currentPage: pokeResponse.currentPage ?? 20,
+                nextPage: pokeResponse.nextPage,
+                previousPage: pokeResponse.previousPage
+            )
         }
     }
 }

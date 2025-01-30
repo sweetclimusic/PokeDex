@@ -9,27 +9,30 @@ import XCTest
 @testable import PokeDex
 
 final class PokeDexTests: XCTestCase {
-
+    let observableSut = PokeApi.Pokemon.ObservableState()
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        observableSut.viewState = .empty
+        observableSut.viewModel = PokeApi.Pokemon.ViewModel(
+            pokemon: [],
+            currentPage: 20,
+            nextPage: nil,
+            previousPage: nil
+        )
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func test_pokemonType_decoderWithExpected () throws {
+        let bulbasaurData = Test.getBulbasaurJSON()
+        let expectedImageURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+        do {
+            let decoder = JSONDecoder()
+            let pokemonTypes = try decoder.decode(Pokemon.self, from: bulbasaurData)
+            XCTAssertEqual(pokemonTypes.imageUrl, expectedImageURL)
+            XCTAssertEqual(pokemonTypes.id, 1)
+            XCTAssertEqual(pokemonTypes.name, "bulbasaur")
+            XCTAssertEqual(pokemonTypes.primaryType, "grass")
+            XCTAssertEqual(pokemonTypes.secondaryType, "poison")
         }
     }
 

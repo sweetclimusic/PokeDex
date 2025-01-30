@@ -19,13 +19,19 @@ extension PokeApi.Pokemon {
         
         var buttonAction: VoidHandler?
         
+        internal let inspection = Inspection<Self>()
+        
         var body: some View {
             NoContentView(
                 systemImageName: systemImageName,
                 description: description,
                 buttonText: buttonText,
                 buttonAction: buttonAction
-            )
+            ).onReceive(
+                inspection.notice
+            ) {
+                self.inspection.visit(self,$0)
+            }
         }
     }
 }

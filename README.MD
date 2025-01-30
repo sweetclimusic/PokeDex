@@ -46,18 +46,8 @@ Only pokemon were address for the spoc, further user experince could be made by 
 
 TODO:
 keep readme updated
-last working on loading the JSON data, so far there is a nil value,
-in the Task group I need to have the first result returned to then do the getByID fetch.
 
-PokeApiPokemonViewDelegate need to update the ObservableState, normally there is a viewcontroller
-
-load Navigation stack loading PokemonSceneView.
-have pokemonSceneView loading, then go to fetch the service and wait for pokemon...
-verify JSON data is loaded correctly
-infinite scroll
+manage currentPage, prev and next in observableState.
+infinite scroll ( kindof, a bug after view details)
 update PokemonSceneView based on observerState
-detailview
-imageAsync
 Tests
-add a button to disable the cache to show the loading if needed ( as slide out button like pokemon pocket tcg)
-design

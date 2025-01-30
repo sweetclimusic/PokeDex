@@ -17,7 +17,7 @@ protocol PokeApiGetService {
     ///
     /// **Return:** [T]
     ///
-    func get(page: Int?) async throws -> [APIType]
+    func get(page: Int?, limit: Int?) async throws -> [APIType]
     
     /// Generic GET function to get the given Decodable T type from Pokeapi
     ///

@@ -29,40 +29,62 @@ extension PokeApi.Pokemon {
     }
 
     struct SceneView: View {
+        @Namespace var nspace
+
         var interactor: PokeApiPokemonBusinessLogic!
-        var observableState: ObservableState = ObservableState()
+
+        @State var observableState: ObservableState
 
         @State private var path = NavigationPath()
-
+        @State var pokemonData = [Pokemon]()
         var body: some View {
             NavigationStack(path: $path) {
                 ScrollView {
-                    AnyView(renderView(viewState: observableState.viewState))
+                    renderView(viewState: observableState.viewState)
                 }
+                .ignoresSafeArea(.container, edges: .bottom)
                 .navigationBarTitleDisplayMode(.large)
                 .task {
-                    do {
-                        try await interactor.getViewContents()
-                    } catch {
-                        observableState.viewState = .error
+                    if observableState.viewState != .summary {
+                        await loadPokemonData()
                     }
                 }
-            }.padding()
+            }.padding(.horizontal)
+        }
+
+        fileprivate func loadPokemonData() async {
+            observableState.viewState = .loading
+            do {
+                //pokemonData = try await interactor.refreshPokemonData()
+                observableState.viewModel = try await
+                interactor.getViewContents(
+                    offset: nil, limit: nil)
+                pokemonData = observableState.viewModel.pokemon
+                observableState.viewState = .summary
+            } catch {
+                observableState.viewState = .error
+            }
         }
 
         @ViewBuilder
-        public func renderView(viewState: SceneState) -> any View {
+        public func renderView(viewState: SceneState) -> some View {
             switch viewState {
             case .loading:
                 LoadingView()
             case .empty:
                 NoContentView()
             case .error:
-                ErrorView()
+                ErrorView {
+                    Task {
+                        await loadPokemonData()
+                    }
+                }
             case .noConnection:
                 NoInternetView()
             case .summary:
-                PokedexView()
+                PokedexView(
+                    pokemonData: self.$pokemonData, path: $path, observableState: observableState
+                )
             }
         }
     }

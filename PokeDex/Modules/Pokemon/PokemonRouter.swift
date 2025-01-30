@@ -10,29 +10,28 @@ import SwiftUI
 
 extension PokeApi.Pokemon {
     class Router: Displayable {
-        
+
         var viewType: any View.Type {
             PokeApi.Pokemon.SceneView.self
         }
-        
+
         var dataStore: PokeApiPokemonDataStore!
-        
+
         var sceneViewState: SceneState = PokeApi.Pokemon.SceneState.empty
-        
+
         func display() -> any View {
             let observableSceneState = PokeApi.Pokemon.ObservableState()
-            observableSceneState.viewState = sceneViewState
-            
             let interactor = Interactor()
-            let presenter = Presenter()
-            let viewController = ViewController(observableState: observableSceneState)
+            let presenter = Presenter(observableState: observableSceneState)
+            
             interactor.presenter = presenter
-            presenter.sceneView = viewController
+
+            observableSceneState.viewState = sceneViewState
+            observableSceneState.interactor = interactor
             dataStore = interactor
-            var sceneView = PokeApi.Pokemon.SceneView(interactor: interactor,observableState: observableSceneState)
-        
-            //presenter.sceneView = viewController
-            return sceneView
+
+            return PokeApi.Pokemon.SceneView(
+                interactor: interactor, observableState: observableSceneState)
         }
     }
 }

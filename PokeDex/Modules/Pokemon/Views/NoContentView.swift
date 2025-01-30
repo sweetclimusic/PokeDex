@@ -21,7 +21,6 @@ extension PokeApi.Pokemon {
         var buttonText: String = "Retry"
         var buttonAction: VoidHandler?
 
-        internal let inspection = Inspection<Self>()
         var body: some View {
             ContentUnavailableView(
                 label: {
@@ -31,17 +30,13 @@ extension PokeApi.Pokemon {
                 description: {
                     Text(
                         description
-                    )},
+                    ).font(.headline)
+                },
                 actions: {
                     Button(buttonText) {
                         buttonAction?()
                     }
                 })
-            .onReceive(
-                    inspection.notice
-                ) {
-                    self.inspection.visit(self,$0)
-                }
         }
     }
 }
