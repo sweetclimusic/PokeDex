@@ -8,40 +8,54 @@
 import XCTest
 @testable import PokeDex
 
-class PokeApiPokemonBusinessLogicSpy: PokeApiPokemonBusinessLogic {
-    var getViewContentsCount: Int = 0
-    var didGetViewContents: Bool = false
-    
-    var stubbedViewModel: PokeDex.PokeApi.Pokemon.ViewContents.ViewModel = .init(pokemon: [])
-    
-    func getViewContents() async throws -> PokeDex.PokeApi.Pokemon.ViewContents.ViewModel {
-        getViewContentsCount += 1
-        didGetViewContents = true
-        return stubbedViewModel
-    }
-}
-
 typealias InteractorLogicSpy = PokeApiPokemonBusinessLogic & PokeApiPokemonDataStore
 class PokeApiPokemonInteractorLogicSpy: InteractorLogicSpy {
+    var selectedPokemon: PokeDex.Pokemon?
     
-    var stubbedViewModel: PokeDex.PokeApi.Pokemon.ViewContents.ViewModel = .init(pokemon: [])
-    
-    var getViewContentsCount: Int = 0
-    var didGetViewContents: Bool = false
-    
-    func getViewContents() async throws -> PokeDex.PokeApi.Pokemon.ViewContents.ViewModel {
-        getViewContentsCount += 1
-        didGetViewContents = true
-        return stubbedViewModel
-    }
-    
-    var selectedPokemon: String?
+    var pokemonData: [PokeDex.Pokemon] = []
     
     var nextPage: Int?
     
     var previousPage: Int?
     
-    var pokemonSpeciesQueried: [PokeDex.PokeApiStandardResultNode] = []
+    var getViewContentsCount: Int = 0
+    var didGetViewContents: Bool = false
+    var didRefreshPokemonCount: Int = 0
+    var didLoadMorePokemonCount: Int = 0
+    var didRefreshPokemonData: Bool = false
+    var didLoadMorePokemonData: Bool = false
+    
+    func getViewContents(offset: Int?, limit: Int?) async throws -> PokeDex.PokeApi.Pokemon.ViewContents.ViewModel {
+        getViewContentsCount += 1
+        didGetViewContents = true
+        return stubbedViewModel
+    }
+    
+    func loadmorePokemonData(offset: Int?, limit: Int?) async -> [PokeDex.Pokemon] {
+        didLoadMorePokemonCount += 0
+        didLoadMorePokemonData = true
+        return stubbedViewModel.pokemon
+    }
+    
+    func refreshPokemonData() async -> [PokeDex.Pokemon] {
+        didRefreshPokemonCount += 1
+        didRefreshPokemonData = true
+        return stubbedViewModel.pokemon
+    }
+    
+    
+    var stubbedViewModel: PokeDex.PokeApi.Pokemon.ViewContents.ViewModel = .init(
+        pokemon: [],
+        currentPage: 20,
+        nextPage: nil,
+        previousPage: nil
+    )
+    
+    func getViewContents() async throws -> PokeDex.PokeApi.Pokemon.ViewContents.ViewModel {
+        getViewContentsCount += 1
+        didGetViewContents = true
+        return stubbedViewModel
+    }
 
 }
 

@@ -28,6 +28,7 @@ final class PokeApiPokemonViewInspectorTests: XCTestCase {
             previousPage: nil
         )
     }
+    
     @MainActor
     func test_noErrorView_withExpected() throws {
         // GIVEN
@@ -63,12 +64,14 @@ final class PokeApiPokemonViewInspectorTests: XCTestCase {
     }
     @MainActor
     func test_pokedexView_withExpected() throws {
-        var sut = PokeApi.Pokemon.PokedexView(pokemonData: <#Binding<[Pokemon]>#>, observableState: <#PokeApi.Pokemon.ObservableState#>)
+        var pokemonData: Binding = .constant([Pokemon]())
+        var path: Binding = .constant(NavigationPath())
+        var sut = PokeApi.Pokemon.PokedexView(pokemonData: pokemonData, path: path, observableState: observableState)
         XCTAssertTrue(true)
     }
     @MainActor
     func test_ppokemonView_withExpected() throws {
-        var path: Binding = .constant([1])
+        var path: Binding = .constant(NavigationPath())
         var sut = PokeApi.Pokemon.PokemonView(pokemon: observableState.viewModel.pokemon[0], path: path )
         XCTAssertTrue(true)
     }
