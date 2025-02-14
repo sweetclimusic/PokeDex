@@ -7,7 +7,7 @@
 import Foundation
 
 protocol PokeApiGetService {
-    associatedtype APIType: Decodable
+    associatedtype APIType: Decodable & Hashable
     var urlSession: URLSessionProtocol { get }
     var cachePolicy: NSURLRequest.CachePolicy { get }
     

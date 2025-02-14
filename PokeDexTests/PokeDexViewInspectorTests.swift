@@ -12,7 +12,7 @@ import SwiftUI
 
 final class PokeApiPokemonViewInspectorTests: XCTestCase {
     var observableState: PokeApi.Pokemon.ObservableState!
-    var interactorSpy: PokeApiPokemonBusinessLogicSpy!
+    var interactorSpy: PokeApiPokemonInteractorLogicSpy!
     var routerSpy: PokeApi.Pokemon.Router!
     
     
@@ -72,7 +72,9 @@ final class PokeApiPokemonViewInspectorTests: XCTestCase {
     @MainActor
     func test_ppokemonView_withExpected() throws {
         var path: Binding = .constant(NavigationPath())
-        var sut = PokeApi.Pokemon.PokemonView(pokemon: observableState.viewModel.pokemon[0], path: path )
+        var pokemonDataAsArray: [Pokemon] = Array(observableState.viewModel.pokemon)
+        
+        var sut = PokeApi.Pokemon.PokemonView(pokemon: pokemonDataAsArray[0], path: path )
         XCTAssertTrue(true)
     }
 }

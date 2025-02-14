@@ -37,14 +37,14 @@ extension PokeApi.Pokemon {
                         .task {
                             if pokemonData.last?.id == pokemon.id {
                                 // Fetch and Filter out existing Pokemon
-                                let newPokemon =
+                                let newPokemonData =
                                 await observableState.interactor?.loadmorePokemonData(
                                     offset:  pokemonData.count, //observableState.viewModel.currentPage,
                                     limit: 20
                                 ).filter { newPoke in
                                     !pokemonData.contains(where: { $0.id == newPoke.id })
                                 } ?? []
-                                pokemonData += newPokemon
+                                pokemonData += newPokemonData
                             }
                         }
                         
@@ -69,7 +69,7 @@ extension PokeApi.Pokemon {
                     if !newValue, let currentId = currentPokemonID {
                         if let index = pokemonData.firstIndex(where: { $0.id == currentId }) {
                             withAnimation {
-                                proxy.scrollTo(pokemonData[index].id, anchor: .center)
+                                proxy.scrollTo(currentId, anchor: .center)
                             }
                         }
                     }
@@ -79,15 +79,20 @@ extension PokeApi.Pokemon {
         
         var searchResults: [Pokemon] {
             if searchText.isEmpty {
-                return pokemonData
+                return Array(pokemonData)
             } else {
-                return pokemonData.filter { pokemon in
+                let result = pokemonData.filter { pokemon in
                     guard let name = pokemon.name else {
                         return false
                     }
                     return name.localizedCaseInsensitiveContains(searchText)
                 }
+                return Array(result)
             }
+        }
+        
+        var getPokeMonData: [Pokemon] {
+            return Array(pokemonData)
         }
     }
 }

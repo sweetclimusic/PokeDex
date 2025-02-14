@@ -13,15 +13,22 @@ extension PokeApi.Pokemon {
             VStack(alignment: .leading) {
                 HStack(alignment: .top, spacing: verticalSpacing) {
                     VStack(alignment: .leading, spacing: verticalSpacing) {
-                        AsyncImage(url: URL(string: pokemon.imageUrl ?? "")) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 150)
-                            
-                        } placeholder: {
-                            ProgressView()
-                                .frame(width: 150, height: 150)
+                        AsyncImage(url: URL(string: pokemon.imageUrl ?? "")) { phase in
+                            switch phase {
+                            case .failure:
+                                Image(systemName: "wifi.slash")
+                                    .modifier(PokeBall())
+                            case .empty:
+                                ProgressView()
+                                    .frame(width: 150, height: 150)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 150)
+                            default:
+                                EmptyView()
+                            }
                         }
                     }
                     Spacer()

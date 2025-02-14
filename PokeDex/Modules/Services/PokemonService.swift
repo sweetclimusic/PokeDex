@@ -59,6 +59,8 @@ final class PokemonService: PokeApiGetService {
             }
 
             return pokemon
+        } catch is URLError {
+            throw PokeAPIEndpointError.noInternetError
         } catch {
             throw PokeAPIEndpointError.unknownError
         }
@@ -87,11 +89,8 @@ final class PokemonService: PokeApiGetService {
                 }
             }
             throw PokeAPIEndpointError.unknownError
-        } catch let error as URLError {
-            if error.code == .notConnectedToInternet {
-                throw PokeAPIEndpointError.noInternetError
-            }
-            throw PokeAPIEndpointError.unknownError
+        } catch is URLError {
+            throw PokeAPIEndpointError.noInternetError
         } catch {
             throw PokeAPIEndpointError.unknownError
         }

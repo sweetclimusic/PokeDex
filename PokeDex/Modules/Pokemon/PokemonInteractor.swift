@@ -34,7 +34,7 @@ extension PokeApi.Pokemon {
 
         var selectedPokemon: Pokemon?
 
-        var pokemonData = [Pokemon]()
+        var pokemonData: [Pokemon] = []
 
         private let pokeApiGetService = Container.shared.getpokeApiGetService()
         private var currentPage: Int = 0
@@ -43,7 +43,7 @@ extension PokeApi.Pokemon {
         var presenter: PokeApiPokemonPresentationLogic!
 
         func getViewContents(offset: Int?, limit: Int?) async throws
-            -> PokeApi.Pokemon.ViewContents.ViewModel
+            -> ViewModel
         {
             var pokemonPagedResults: [Pokemon]
             var pokemonDetails: Pokemon?
@@ -58,17 +58,14 @@ extension PokeApi.Pokemon {
                     limit: currentLimit
                 )
 
-                try await withThrowingTaskGroup(of: Any.self) { group in
+                viewModel = try await withThrowingTaskGroup(of: Any.self) { group in
                     // Second task: Get specific pokemon details
                     group.addTask { [weak self] in
                         var results: [Pokemon] = []
                         for pokemon in pokemonPagedResults {
                             guard let pokId = pokemon.id,
-                                let details = try await self?.pokeApiGetService.get(by: pokId)
-                            else {
-                                print("❌ Failed to get pokemon details")
-                                continue
-                            }
+                                  let details = try await self?.pokeApiGetService.get(by: pokId)
+                            else { continue }
                             results.append(details)
                         }
                         return results as Any
@@ -78,16 +75,22 @@ extension PokeApi.Pokemon {
                     for try await result in group {
 
                         if let detail = result as? Pokemon {
+                            //unused get doen't return a single pokemon
                             pokemonDetails = detail
-                            
+
                         } else if let pokeResults = result as? [Pokemon] {
                             pokemonPagedResults = pokeResults
                             previousPage = max(0, currentPage - currentLimit)
                             currentPage += currentLimit
                             nextPage = currentPage + currentLimit
-                        } else {
+                        } else if let errorViewModel = result as? ViewModel {
                             print("❌ Unknown result type:", result)
+                            return errorViewModel
                         }
+                    }
+                    // Ensure data is available
+                    if pokemonPagedResults.count == 0, pokemonDetails == nil {
+                        throw PokeAPIEndpointError.notFoundError
                     }
                     // we would re-render the view in traditional Clean swift, but using Async/Await and Task to redraw to the screen
                     // return the builtup ViewModel
@@ -101,14 +104,34 @@ extension PokeApi.Pokemon {
                         )
                     )
                     pokemonData = pokemonPagedResults
+                    return viewModel
                 }
-                // Ensure data is available
-                if pokemonPagedResults.count == 0, pokemonDetails == nil {
-                    throw PokeAPIEndpointError.notFoundError
-                }
-
+                
             } catch {
-                throw PokeAPIEndpointError.unknownError
+                let response = Response(
+                    selectedPokemon: nil,
+                    results: [],
+                    currentPage: currentPage,
+                    nextPage: nextPage,
+                    previousPage: previousPage
+                )
+                if let pokeApiError = error as? PokeAPIEndpointError,
+                   pokeApiError == .noInternetError
+                {
+                    print(
+                        "❌ Failed to get pokemon details with, error: \(error)"
+                    )
+                    return presenter.presentError(
+                        response: response,
+                        errorType: PokeAPIEndpointError.noInternetError)
+                } else {
+                    print(
+                        "❌ Failed to get pokemon details, unknownError"
+                    )
+                    return presenter.presentError(
+                        response: response,
+                        errorType: PokeAPIEndpointError.unknownError)
+                }
             }
 
             return viewModel
@@ -127,7 +150,7 @@ extension PokeApi.Pokemon {
                     offset: offset, limit: limit)
                 pokemonData = viewModel.pokemon
                 // update what to fetch next since we refreshed the data
-                currentLimit = 20 // reset to default
+                currentLimit = 20  // reset to default
                 previousPage = max(0, currentPage - currentLimit)
                 currentPage = limit
                 nextPage = currentPage + currentLimit

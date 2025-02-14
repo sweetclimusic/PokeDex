@@ -8,7 +8,14 @@ import Foundation
 import SwiftUI
 
 protocol PokeApiPokemonPresentationLogic {
-    func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response) -> PokeApi.Pokemon.ViewContents.ViewModel
+    func presentError(
+        response: PokeApi.Pokemon.ViewContents.Response,
+        errorType: PokeAPIEndpointError
+    ) -> PokeApi.Pokemon.ViewContents.ViewModel
+    
+    func presentViewContents(
+        response: PokeApi.Pokemon.ViewContents.Response
+    ) -> PokeApi.Pokemon.ViewContents.ViewModel
 }
 
 extension PokeApi.Pokemon {
@@ -22,11 +29,23 @@ extension PokeApi.Pokemon {
         
         let builder = PokeApi.Pokemon.ViewModelBuilder()
         
-        func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response) -> ViewModel{
+        func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response) -> ViewModel {
             let viewModel = builder.buildPokemonViewModel(pokeResponse: response)
             observableState.viewModel = viewModel
             observableState.viewState = .summary
             
+            return viewModel
+        }
+        
+        func presentError(response: PokeApi.Pokemon.ViewContents.Response, errorType: PokeAPIEndpointError = .unknownError) -> ViewModel {
+            let viewModel: ViewModel = builder.buildPokemonViewModel(pokeResponse: response)
+            observableState.viewModel = viewModel
+            switch errorType {
+            case .unknownError, .badRequestError, .notFoundError:
+                observableState.viewState = .error
+            case .noInternetError:
+                observableState.viewState = .noConnection
+            }
             return viewModel
         }
         

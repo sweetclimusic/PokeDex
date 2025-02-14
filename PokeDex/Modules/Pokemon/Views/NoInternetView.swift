@@ -14,7 +14,7 @@ extension PokeApi.Pokemon {
         
         var description: String = "No Internet connect, please try again"
         
-        var buttonText: String = ""
+        var buttonText: String = "Retry"
         
         var buttonAction: VoidHandler?
         

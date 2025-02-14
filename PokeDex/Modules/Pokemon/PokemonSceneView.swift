@@ -52,15 +52,14 @@ extension PokeApi.Pokemon {
             }.padding(.horizontal)
         }
 
-        fileprivate func loadPokemonData() async {
+        fileprivate func loadPokemonData(_ offset: Int? = nil, _ limit: Int? = nil) async {
             observableState.viewState = .loading
             do {
                 //pokemonData = try await interactor.refreshPokemonData()
                 observableState.viewModel = try await
                 interactor.getViewContents(
-                    offset: nil, limit: nil)
+                    offset: offset, limit: limit)
                 pokemonData = observableState.viewModel.pokemon
-                observableState.viewState = .summary
             } catch {
                 observableState.viewState = .error
             }
@@ -76,11 +75,15 @@ extension PokeApi.Pokemon {
             case .error:
                 ErrorView {
                     Task {
-                        await loadPokemonData()
+                        await loadPokemonData(observableState.viewModel.currentPage)
                     }
                 }
             case .noConnection:
-                NoInternetView()
+                NoInternetView() {
+                    Task {
+                        await loadPokemonData(observableState.viewModel.currentPage)
+                    }
+                }
             case .summary:
                 PokedexView(
                     pokemonData: self.$pokemonData, path: $path, observableState: observableState

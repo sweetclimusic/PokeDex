@@ -43,3 +43,4 @@ keep readme updated
 
 Tests: They are a WIP and do not complie.
 I need to overwrite the Container.shared pokeServices with a FakeServices and the URLSessionProtocol so that I can return fake pokemon data and a apprpriate spies to confirm those functions are being called.
+When you reconnect the currentPage and nextPage start to fail and you can't pass the last scrolled to pokemone. list gets stuck, need to debug
