@@ -10,7 +10,7 @@ import SwiftUI
 
 @testable import PokeDex
 // enable a loopback for ViewInspector to capture async and response to views that have delay rendering
-extension Inspection: @retroactive Sendable {}
+extension Inspection: @unchecked Sendable {}
 extension Inspection: @retroactive InspectionEmissary { }
 
 // MARK: Testing namespace
