@@ -8,7 +8,7 @@ import SwiftUI
 
 protocol PokeApiPokemonDisplayLogic: AnyObject {
     func displayViewContents(
-        viewModel: PokeApi.Pokemon.ViewContents.ViewModel
+        viewModel: PokeDex.ViewContents.ViewModel
     )
 }
 
@@ -18,7 +18,7 @@ protocol PokeApiPokemonViewDelegate: AnyObject {
     func navigateToBackView()
 }
 
-extension PokeApi.Pokemon {
+extension PokeDex {
 
     public enum SceneState: String, Equatable {
         case loading
@@ -31,12 +31,10 @@ extension PokeApi.Pokemon {
     struct SceneView: View {
         @Namespace var nspace
 
-        var interactor: PokeApiPokemonBusinessLogic!
-
         @State var observableState: ObservableState
 
         @State private var path = NavigationPath()
-        @State var pokemonData = [Pokemon]()
+        @State var pokemonData = [PokeDex.PokeApi.Pokemon]()
         var body: some View {
             NavigationStack(path: $path) {
                 ScrollView {
@@ -56,9 +54,11 @@ extension PokeApi.Pokemon {
             observableState.viewState = .loading
             do {
                 //pokemonData = try await interactor.refreshPokemonData()
-                observableState.viewModel = try await
-                interactor.getViewContents(
-                    offset: offset, limit: limit)
+                if let result = try await
+                observableState.interactor?.getViewContents(
+                    offset: offset, limit: limit) {
+                    observableState.viewModel = result
+                }
                 pokemonData = observableState.viewModel.pokemon
             } catch {
                 observableState.viewState = .error

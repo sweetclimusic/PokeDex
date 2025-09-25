@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     @Observable class ObservableState {
         public var viewState: SceneState = .empty
         public var viewModel: ViewModel = ViewModel(

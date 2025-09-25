@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     protocol StateViewModel {
         var systemImageName: String { get }
         var description: String { get }
@@ -26,6 +26,7 @@ extension PokeApi.Pokemon {
                 label: {
                     Label("", systemImage: systemImageName)
                         .modifier(PokeBall())
+                        .accessibilityHidden(true)
                 },
                 description: {
                     Text(
@@ -42,5 +43,5 @@ extension PokeApi.Pokemon {
 }
 
 #Preview {
-    PokeApi.Pokemon.NoContentView()
+    PokeDex.NoContentView()
 }

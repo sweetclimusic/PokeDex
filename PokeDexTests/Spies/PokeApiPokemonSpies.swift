@@ -10,9 +10,9 @@ import XCTest
 
 typealias InteractorLogicSpy = PokeApiPokemonBusinessLogic & PokeApiPokemonDataStore
 class PokeApiPokemonInteractorLogicSpy: InteractorLogicSpy {
-    var selectedPokemon: PokeDex.Pokemon?
+    var selectedPokemon: PokeDex.PokeApi.Pokemon?
     
-    var pokemonData: [PokeDex.Pokemon] = []
+    var pokemonData: [PokeDex.PokeApi.Pokemon] = []
     
     var nextPage: Int?
     
@@ -25,33 +25,33 @@ class PokeApiPokemonInteractorLogicSpy: InteractorLogicSpy {
     var didRefreshPokemonData: Bool = false
     var didLoadMorePokemonData: Bool = false
     
-    func getViewContents(offset: Int?, limit: Int?) async throws -> PokeDex.PokeApi.Pokemon.ViewContents.ViewModel {
+    func getViewContents(offset: Int?, limit: Int?) async throws -> PokeDex.ViewContents.ViewModel {
         getViewContentsCount += 1
         didGetViewContents = true
         return stubbedViewModel
     }
     
-    func loadmorePokemonData(offset: Int?, limit: Int?) async -> [PokeDex.Pokemon] {
+    func loadmorePokemonData(offset: Int?, limit: Int?) async -> [PokeDex.PokeApi.Pokemon] {
         didLoadMorePokemonCount += 0
         didLoadMorePokemonData = true
         return stubbedViewModel.pokemon
     }
     
-    func refreshPokemonData() async -> [PokeDex.Pokemon] {
+    func refreshPokemonData() async -> [PokeDex.PokeApi.Pokemon] {
         didRefreshPokemonCount += 1
         didRefreshPokemonData = true
         return stubbedViewModel.pokemon
     }
     
     
-    var stubbedViewModel: PokeDex.PokeApi.Pokemon.ViewContents.ViewModel = .init(
+    var stubbedViewModel: PokeDex.ViewContents.ViewModel = .init(
         pokemon: [],
         currentPage: 20,
         nextPage: nil,
         previousPage: nil
     )
     
-    func getViewContents() async throws -> PokeDex.PokeApi.Pokemon.ViewContents.ViewModel {
+    func getViewContents() async throws -> PokeDex.ViewContents.ViewModel {
         getViewContentsCount += 1
         didGetViewContents = true
         return stubbedViewModel
@@ -66,12 +66,58 @@ class PokeApiGetRequestSpy: URLSessionProtocol {
     
     var dataFetchRequestUrl: String? = nil
     var dataFetchRequestCount: Int = 0
-    var didDataFetchRequestCount: Bool = false
+    var didDataFetchRequest: Bool = false
+    var dataFetchRequestArgs: [URLRequest] = []
     func data(for request: URLRequest) async throws -> (Data, URLResponse) {
         dataFetchRequestUrl = request.url?.absoluteString
         dataFetchRequestCount += 1
-        didDataFetchRequestCount = true
+        dataFetchRequestArgs.append(request)
+        didDataFetchRequest = true
         //return the stubbed properties above
         return (stubbedFetchedData, stubbedResponseNone)
+    }
+}
+
+
+
+class PokeApiPokemonPresentorLogicSpy: PokeApiPokemonPresentationLogic {
+    var didPresentErrorCalled: Bool = false
+    var didPresentErrorCalledCount: Int = 0
+    var presentErrorParameters: (
+        PokeDex.ViewContents.Response,
+        Void
+    )!
+    var presentErrorParametersList = [(
+        PokeDex.ViewContents.Response,
+        Void
+    )]()
+    var studdedPresentErrorViewModel: PokeDex.ViewContents.ViewModel!
+    
+    func presentError(response: PokeDex.ViewContents.Response, errorType: PokeAPIEndpointError) -> PokeDex.ViewContents.ViewModel {
+        didPresentErrorCalled = true
+        didPresentErrorCalledCount += 1
+        presentErrorParameters = (response, ())
+        presentErrorParametersList.append((response, ()))
+        return studdedPresentErrorViewModel
+    }
+
+    var didPresentViewContentsCalledCount: Int = 0
+    var didPresentViewContentsCalled: Bool = false
+    var presentViewContentsParameters: (
+        PokeDex.ViewContents.Response,
+        Void
+    )!
+    var presentViewContentsParametersList = [(
+        PokeDex.ViewContents.Response,
+        Void
+    )]()
+    
+    var studdedPresentViewContentsResponse: PokeDex.ViewContents.ViewModel!
+    func presentViewContents(response: PokeDex.ViewContents.Response) -> PokeDex.ViewContents.ViewModel {
+        didPresentViewContentsCalled = true
+        didPresentViewContentsCalledCount += 1
+        presentViewContentsParameters = (response, ())
+        presentViewContentsParametersList.append((response, ()))
+        return studdedPresentViewContentsResponse
     }
 }

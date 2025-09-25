@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     struct PokedexView: View {
         @Namespace var nspace
         
-        @Binding var pokemonData: [Pokemon]
+        @Binding var pokemonData: [PokeDex.PokeApi.Pokemon]
         @Binding var path: NavigationPath
         @State private var searchText: String = ""
         @State private var searchIsActive = false
@@ -77,7 +77,7 @@ extension PokeApi.Pokemon {
             }
         }
         
-        var searchResults: [Pokemon] {
+        var searchResults: [PokeDex.PokeApi.Pokemon] {
             if searchText.isEmpty {
                 return Array(pokemonData)
             } else {
@@ -91,7 +91,7 @@ extension PokeApi.Pokemon {
             }
         }
         
-        var getPokeMonData: [Pokemon] {
+        var getPokeMonData: [PokeDex.PokeApi.Pokemon] {
             return Array(pokemonData)
         }
     }

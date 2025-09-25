@@ -9,17 +9,17 @@ import SwiftUI
 
 protocol PokeApiPokemonPresentationLogic {
     func presentError(
-        response: PokeApi.Pokemon.ViewContents.Response,
+        response: PokeDex.ViewContents.Response,
         errorType: PokeAPIEndpointError
-    ) -> PokeApi.Pokemon.ViewContents.ViewModel
+    ) -> PokeDex.ViewContents.ViewModel
     
     func presentViewContents(
-        response: PokeApi.Pokemon.ViewContents.Response
-    ) -> PokeApi.Pokemon.ViewContents.ViewModel
+        response: PokeDex.ViewContents.Response
+    ) -> PokeDex.ViewContents.ViewModel
 }
 
-extension PokeApi.Pokemon {
-    typealias ViewModel = PokeApi.Pokemon.ViewContents.ViewModel
+extension PokeDex {
+    typealias ViewModel = PokeDex.ViewContents.ViewModel
     class Presenter: PokeApiPokemonPresentationLogic {
         private weak var observableState: ObservableState!
         
@@ -27,9 +27,9 @@ extension PokeApi.Pokemon {
             self.observableState = observableState
         }
         
-        let builder = PokeApi.Pokemon.ViewModelBuilder()
+        let builder = PokeDex.ViewModelBuilder()
         
-        func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response) -> ViewModel {
+        func presentViewContents(response: PokeDex.ViewContents.Response) -> ViewModel {
             let viewModel = builder.buildPokemonViewModel(pokeResponse: response)
             observableState.viewModel = viewModel
             observableState.viewState = .summary
@@ -37,7 +37,7 @@ extension PokeApi.Pokemon {
             return viewModel
         }
         
-        func presentError(response: PokeApi.Pokemon.ViewContents.Response, errorType: PokeAPIEndpointError = .unknownError) -> ViewModel {
+        func presentError(response: PokeDex.ViewContents.Response, errorType: PokeAPIEndpointError = .unknownError) -> ViewModel {
             let viewModel: ViewModel = builder.buildPokemonViewModel(pokeResponse: response)
             observableState.viewModel = viewModel
             switch errorType {

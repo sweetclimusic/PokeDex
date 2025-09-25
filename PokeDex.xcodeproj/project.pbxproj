@@ -33,6 +33,8 @@
 		577E831B2D3DBE1E00917672 /* PokeDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokeDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		577E83252D3DBE1E00917672 /* PokeDexUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokeDexUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		577E838C2D4061B300917672 /* README.MD */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.MD; sourceTree = "<group>"; };
+		697CBC8B2E84952B00E69FD9 /* PokeDexUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = PokeDexUITests.xctestplan; path = PokeDexUITests/PokeDexUITests.xctestplan; sourceTree = "<group>"; };
+		69A524522E84938E00AE1E43 /* PokeDexTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PokeDexTests.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -82,6 +84,8 @@
 		577E83022D3DBE1C00917672 = {
 			isa = PBXGroup;
 			children = (
+				697CBC8B2E84952B00E69FD9 /* PokeDexUITests.xctestplan */,
+				69A524522E84938E00AE1E43 /* PokeDexTests.xctestplan */,
 				577E838C2D4061B300917672 /* README.MD */,
 				577E830D2D3DBE1C00917672 /* PokeDex */,
 				577E831E2D3DBE1E00917672 /* PokeDexTests */,
@@ -180,7 +184,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					577E830A2D3DBE1C00917672 = {
 						CreatedOnToolsVersion = 16.2;
@@ -317,6 +321,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = K24Q63C8C9;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -380,6 +385,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = K24Q63C8C9;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -409,7 +415,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PokeDex/Preview Content\"";
-				DEVELOPMENT_TEAM = K24Q63C8C9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -438,7 +443,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PokeDex/Preview Content\"";
-				DEVELOPMENT_TEAM = K24Q63C8C9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -465,12 +469,13 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K24Q63C8C9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ashlee.muscroft.PokeDexTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -484,7 +489,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K24Q63C8C9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
@@ -502,11 +506,12 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K24Q63C8C9;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "$(TESTING_FRAMEWORK_MODULE_ALIAS_FLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ashlee.muscroft.PokeDexUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -519,7 +524,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K24Q63C8C9;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ashlee.muscroft.PokeDexUITests;

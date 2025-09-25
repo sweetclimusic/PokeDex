@@ -15,7 +15,6 @@ import Foundation
 
 struct Container {}
     
-struct PokeApi {
-    struct PokeDex {}
-    struct Pokemon {}
+struct PokeDex {
+    struct PokeApi {}
 }

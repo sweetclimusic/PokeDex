@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     static let verticalSpacing: CGFloat = 10.0
     struct PokemonView: View {
         @Namespace var nspace
         @Environment(\.dismiss) private var dismiss
-        var pokemon: Pokemon
+        var pokemon: PokeDex.PokeApi.Pokemon
         @Binding var path: NavigationPath
             
         // Testing Helper for viewInspect
@@ -30,7 +30,7 @@ extension PokeApi.Pokemon {
                         }
                     }
 
-                    AsyncImage(url: URL(string: pokemon.imageUrl!)) { phase in
+                    AsyncImage(url: URL(string: pokemon.imageUrl ?? "")) { phase in
                         switch phase {
                         case .empty:
                             ProgressView()
@@ -73,8 +73,6 @@ extension PokeApi.Pokemon {
                     
                 }
                 .safeAreaInset(edge: .bottom) {
-                    // MARK: extract View to buttonView, destination "ChartView()" actual...
-                    // MARK: ...detail view with specified object defined in KMP
                     VStack(alignment: /*@START_MENU_TOKEN@*/ .center /*@END_MENU_TOKEN@*/) {
 
                         Button(

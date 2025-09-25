@@ -5,7 +5,7 @@
 //  Created by Ashlee Muscroft on 21/01/2025.
 //
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     class ViewModelBuilder {
         func buildPokemonViewModel(pokeResponse: Response) -> ViewModel {
             //manipulate the data here pokemon, habitat, image and build a viewmodel

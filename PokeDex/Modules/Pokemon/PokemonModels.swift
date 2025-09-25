@@ -7,19 +7,19 @@
 import Foundation
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     enum ViewContents {
         
         struct Response {
-            let selectedPokemon: Pokemon?
-            let results: [Pokemon]
+            let selectedPokemon: PokeDex.PokeApi.Pokemon?
+            let results: [PokeDex.PokeApi.Pokemon]
             let currentPage: Int?
             let nextPage: Int?
             let previousPage: Int?
         }
         
         struct ViewModel {
-            let pokemon: [Pokemon]
+            let pokemon: [PokeDex.PokeApi.Pokemon]
             // MARK: pagination
             let currentPage: Int
             let nextPage: Int?

@@ -41,6 +41,5 @@ on the HRMC App we use the predecessor [Resolver](https://github.com/hmlongco/Re
 TODO:
 keep readme updated
 
-Tests: They are a WIP and do not complie.
-I need to overwrite the Container.shared pokeServices with a FakeServices and the URLSessionProtocol so that I can return fake pokemon data and a apprpriate spies to confirm those functions are being called.
-When you reconnect the currentPage and nextPage start to fail and you can't pass the last scrolled to pokemone. list gets stuck, need to debug
+Interactor support DI, and the Container.shared in pokeServices remains private with a FakeServices and the URLSessionProtocol so that I can return fake pokemon data and an appropriate spies to confirm those functions are being called.
+This is a limitation, I've had to include the MockAPIGetService in the main app, the test only classes PokeApiGetRequestSpy should have been directly returned in the compute property `var urlSession` This is where a plugin like Factory is useful as the services can exists in it's shared container on start up. This is a larger piece of work well outside the remit of the Pokedex project, but proper DI or a Factory would be advise in a full scale project

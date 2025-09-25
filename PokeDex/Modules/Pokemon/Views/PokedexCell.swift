@@ -5,10 +5,10 @@
 //  Created by Ashlee Muscroft on 29/01/2025.
 //
 import SwiftUI
-extension PokeApi.Pokemon {
+extension PokeDex {
     struct PokedexCell: View {
         @Namespace var nspace
-        @State var pokemon: Pokemon
+        @State var pokemon: PokeDex.PokeApi.Pokemon
         var body: some View {
             VStack(alignment: .leading) {
                 HStack(alignment: .top, spacing: verticalSpacing) {

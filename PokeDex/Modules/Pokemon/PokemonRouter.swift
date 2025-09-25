@@ -8,30 +8,57 @@
 import Foundation
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     class Router: Displayable {
-
+        
         var viewType: any View.Type {
-            PokeApi.Pokemon.SceneView.self
+            PokeDex.SceneView.self
         }
-
+        
         var dataStore: PokeApiPokemonDataStore!
-
-        var sceneViewState: SceneState = PokeApi.Pokemon.SceneState.empty
-
+        var sceneViewState: SceneState = PokeDex.SceneState.empty
+        private var _interactor: Interactor?
+        var interactor: Interactor {
+            get {
+                if _interactor == nil {
+                    if ProcessInfo.processInfo.environment["XCODE_TEST_PLAN_NAME"] == "PokeDexUITests" {
+                        Container.shared.pokemonService = MockPokemonApiService()
+                        
+                    } else {
+                        Container.shared.pokemonService = PokemonService()
+                    }
+                    
+                    _interactor = Interactor(Container.shared.getpokeApiGetService())
+                }
+                return _interactor!
+            }
+            set {
+                _interactor = newValue
+            }
+        }
+        
+        func contentView() -> any View {
+            if ProcessInfo.processInfo.environment["XCODE_TEST_PLAN_NAME"] == "PokeDexTests" {
+                VStack {
+                    Text("System under Testing")
+                }
+            } else {
+                display() as? PokeDex.SceneView
+            }
+        }
+        
         func display() -> any View {
-            let observableSceneState = PokeApi.Pokemon.ObservableState()
-            let interactor = Interactor()
+            let observableSceneState = PokeDex.ObservableState()
+            let interactor = self.interactor
             let presenter = Presenter(observableState: observableSceneState)
             
             interactor.presenter = presenter
-
+            
             observableSceneState.viewState = sceneViewState
             observableSceneState.interactor = interactor
             dataStore = interactor
-
-            return PokeApi.Pokemon.SceneView(
-                interactor: interactor, observableState: observableSceneState)
+            
+            return PokeDex.SceneView(observableState: observableSceneState)
         }
     }
 }

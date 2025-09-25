@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     
     struct NoInternetView: View, StateViewModel {
         

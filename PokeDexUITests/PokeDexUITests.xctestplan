@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "FE6767D4-F1ED-4214-B7D0-F6345CA65803",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "key" : "UITESTING",
+        "value" : "1"
+      }
+    ]
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "PokeDexUITests\/testExample()",
+        "PokeDexUITests\/testLaunchPerformance()",
+        "PokeDexUITestsLaunchTests",
+        "PokeDexUITestsLaunchTests\/testLaunch()"
+      ],
+      "target" : {
+        "containerPath" : "container:PokeDex.xcodeproj",
+        "identifier" : "577E83242D3DBE1E00917672",
+        "name" : "PokeDexUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

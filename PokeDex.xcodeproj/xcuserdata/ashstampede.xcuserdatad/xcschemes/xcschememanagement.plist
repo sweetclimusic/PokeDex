@@ -7,7 +7,35 @@
 		<key>PokeDex.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>PokeDexTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>PokeDexUITests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>577E830A2D3DBE1C00917672</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>577E831A2D3DBE1E00917672</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>577E83242D3DBE1E00917672</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

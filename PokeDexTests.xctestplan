@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "5E605725-C761-4D5E-B598-0F6B65E1A15A",
+      "name" : "Test Scheme Action",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "UNITTEST",
+            "value" : "1"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "key" : "UNITTEST",
+        "value" : "1"
+      }
+    ]
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "PokeApiPokemonViewInspectorTests\/test_pokedexView_withExpected()"
+      ],
+      "target" : {
+        "containerPath" : "container:PokeDex.xcodeproj",
+        "identifier" : "577E831A2D3DBE1E00917672",
+        "name" : "PokeDexTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "17FDD752-470B-4AA8-BA1F-74C1EDBCDCD2"
+            uuid = "9A4B5E2C-094A-4079-BAED-1C04412ADE42"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PokeDexTests/PokeDexViewInspectorTests.swift"
+            filePath = "PokeDexTests/Spies/PokeApiPokemonSpies.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "test_ppokemonView_withExpected()"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "getViewContents(offset:limit:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "09F001DC-3AA3-4C34-A8D8-80A1DE7436A8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokeDexTests/Spies/PokeApiPokemonSpies.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "presentError(response:errorType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

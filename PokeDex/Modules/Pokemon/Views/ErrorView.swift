@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     
     struct ErrorView: View {
         var errorMessage: String?

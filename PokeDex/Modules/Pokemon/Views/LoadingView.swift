@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension PokeApi.Pokemon {
+extension PokeDex {
     
     struct LoadingView: View {
         var systemImageName: String =  "chevron.down.2"

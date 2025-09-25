@@ -9,10 +9,10 @@ import SwiftUI
 
 @main
 struct PokeDexApp: App {
-    var displayRouter = PokeApi.Pokemon.Router()
+    var displayRouter = PokeDex.Router()
     var body: some Scene {
         WindowGroup {
-            displayRouter.display() as? PokeApi.Pokemon.SceneView
+            AnyView(displayRouter.contentView())
         }
     }
 }
