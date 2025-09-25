@@ -11,7 +11,13 @@
 4. search the results in the pokedex summary filtering the list.
 
 
-### use clean swift, and tests, test swiftui views iewinspector.
+### uses clean swift, and tests, test swiftui with views iewinspector, implemented a skeleton UITest for end-to-end tests. 
+    Light swift6 support, not strict swift 6 concurrency, AsyncImages, Generic APIService for extending to different endpoints.
+## Running,
+Change the development Team, build and run. 3 Targets exists,
+- Main App - Pokedex
+- Unit and ViewInspect Testing - PokeDexTests
+- UITesting - PokeDexUITests 
 
 ## Depencies 
 2. viewInspector, this is a testing library that allows you to inspect the SwiftUI view hierarchy and perform Unit test against your view.
@@ -24,7 +30,7 @@ I wanted too use this take home test to explore clean swift in a fully SwiftUI p
 2. PokemonData, this is a cache of the types previously requested and saved to userDefaults
 
 ## Unit Testing
- TODO: using View Inspector
+ using View Inspector and XCTesting we can perform traditional unit testing and with viewInspector we can unit test the Views that will be displayed to the user.
  
 ## Improvements
 
@@ -36,10 +42,13 @@ additional accessibility Labels/ accessibility audit
 ### basic DI with a singlton was created but using a mature DI library such as factory would be preferred
 ### Factory, [on github](https://github.com/hmlongco/Factory)
 
-on the HRMC App we use the predecessor [Resolver](https://github.com/hmlongco/Resolver), the start of a new project, the chance to learn something new.
+
 
 TODO:
 keep readme updated
 
 Interactor support DI, and the Container.shared in pokeServices remains private with a FakeServices and the URLSessionProtocol so that I can return fake pokemon data and an appropriate spies to confirm those functions are being called.
 This is a limitation, I've had to include the MockAPIGetService in the main app, the test only classes PokeApiGetRequestSpy should have been directly returned in the compute property `var urlSession` This is where a plugin like Factory is useful as the services can exists in it's shared container on start up. This is a larger piece of work well outside the remit of the Pokedex project, but proper DI or a Factory would be advise in a full scale project
+
+<More Thoughts>
+MockPokeGetService feels very anti-pattern. I've worked on projects where a underlying core urlserver existed and would handle all network request. The additon of a MockPockapiGetService shows where this underlying urlserver benefits larger apps as the package could be adapted when running tests, right now I have a Condition checking which target is running and toogle which service to use. Something I see as a limitation.
