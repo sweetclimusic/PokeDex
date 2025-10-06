@@ -29,11 +29,11 @@ remove magic numbers and strings, centralize both for reusable and localisation 
 additional accessibility Labels/ accessibility audit
 better style, especially the detail view
 ## Future Improvements Next time we update the app
-add a favourite system
-add tabs, and a second section for super effective
-add a location by game section for the pokemon (like the real pokedex)
-OCR! scan identify to open the page to the pokemon
-add TTS and announce the details of the pokemon (like the real pokedex)
+- add a favourite system
+- add tabs, and a second section for super effective
+- add a location by game section for the pokemon (like the real pokedex)
+- OCR! scan identify to open the page to the pokemon
+- add TTS and announce the details of the pokemon (like the real pokedex)
  
 ### basic DI with a singleton was created but using a mature DI library such as factory would be preferred
 ### Factory, [on github](https://github.com/hmlongco/Factory)
